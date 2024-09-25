@@ -1,22 +1,12 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME")
-package uni.UNI9154379.pages.index;
-import io.dcloud.uniapp.*;
+package uni.UNI9154379;
 import io.dcloud.uniapp.extapi.*;
 import io.dcloud.uniapp.framework.*;
-import io.dcloud.uniapp.runtime.*;
 import io.dcloud.uniapp.vue.*;
-import io.dcloud.uniapp.vue.shared.*;
 import io.dcloud.uts.*;
 import io.dcloud.uts.Map;
-import io.dcloud.uts.Set;
-import io.dcloud.uts.UTSAndroid;
-import kotlinx.coroutines.CoroutineScope;
-import kotlinx.coroutines.Deferred;
-import kotlinx.coroutines.Dispatchers;
-import kotlinx.coroutines.async;
-import uni.UNI9154379.GenApp
-
-open class GenPagesIndexIndex : BasePage {
+import io.dcloud.uniapp.extapi.navigateTo as uni_navigateTo;
+open class GenPagesIndexSecond : BasePage {
     constructor(instance: ComponentInternalInstance) : super(instance) {
         onLoad(fun(_: OnLoadOptions) {}, instance);
     }
@@ -27,7 +17,12 @@ open class GenPagesIndexIndex : BasePage {
         return createElementVNode("view", null, utsArrayOf(
             createElementVNode("image", utsMapOf("class" to "logo", "src" to "/static/logo.png")),
             createElementVNode("view", utsMapOf("class" to "text-area"), utsArrayOf(
-                createElementVNode("text", utsMapOf("class" to "title"), toDisplayString(_ctx.title), 1)
+                createElementVNode("view", null, " 2222 ")
+            )),
+            createElementVNode("view", null, utsArrayOf(
+                createElementVNode("button", utsMapOf("onClick" to _ctx.handleJump), "跳转", 8, utsArrayOf(
+                    "onClick"
+                ))
             ))
         ));
     }
@@ -36,6 +31,13 @@ open class GenPagesIndexIndex : BasePage {
     override fun data(): Map<String, Any?> {
         return utsMapOf("title" to "Hello");
     }
+    override fun `$initMethods`() {
+        this.handleJump = fun() {
+            uni_navigateTo(NavigateToOptions(url = "./index?id=111"));
+        }
+        ;
+    }
+    open lateinit var handleJump: () -> Unit;
     companion object {
         val styles: Map<String, Map<String, Map<String, Any>>>
             get() {

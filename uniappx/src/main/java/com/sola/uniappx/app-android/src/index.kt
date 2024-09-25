@@ -1,5 +1,6 @@
 @file:Suppress("UNCHECKED_CAST", "USELESS_CAST", "INAPPLICABLE_JVM_NAME")
 package uni.UNI9154379;
+import android.util.Log
 import io.dcloud.uniapp.*;
 import io.dcloud.uniapp.extapi.*;
 import io.dcloud.uniapp.framework.*;
@@ -15,14 +16,13 @@ import kotlinx.coroutines.Deferred;
 import kotlinx.coroutines.Dispatchers;
 import kotlinx.coroutines.async;
 import io.dcloud.uniapp.appframe.AppConfig;
-import uni.UNI9154379.pages.index.GenPagesIndexIndex
 import io.dcloud.uniapp.extapi.exit as uni_exit;
 import io.dcloud.uniapp.extapi.showToast as uni_showToast;
 var firstBackTime: Number = 0;
 open class GenApp : BaseApp {
     constructor(instance: ComponentInternalInstance) : super(instance) {
-        onLaunch(fun(_: OnLaunchOptions) {
-            console.log("App Launch", " at App.uvue:5");
+        onLaunch(fun(option: OnLaunchOptions) {
+            console.log("App Launch", " at App.uvue:5" + option.path);
         }
         , instance);
         onAppShow(fun(_: OnShowOptions) {
@@ -79,6 +79,13 @@ val GenPagesIndexIndexClass = CreateVueComponent(GenPagesIndexIndex::class.java,
     return GenPagesIndexIndex(instance);
 }
 );
+val GenPagesIndexSecondClass = CreateVueComponent(GenPagesIndexSecond::class.java, fun(): VueComponentOptions {
+    return VueComponentOptions(type = "page", name = "", inheritAttrs = GenPagesIndexSecond.inheritAttrs, inject = GenPagesIndexSecond.inject, props = GenPagesIndexSecond.props, propsNeedCastKeys = GenPagesIndexSecond.propsNeedCastKeys, emits = GenPagesIndexSecond.emits, components = GenPagesIndexSecond.components, styles = GenPagesIndexSecond.styles);
+}
+, fun(instance): GenPagesIndexSecond {
+    return GenPagesIndexSecond(instance);
+}
+);
 fun createApp(): UTSJSONObject {
     val app = createSSRApp(GenAppClass);
     return object : UTSJSONObject() {
@@ -88,18 +95,23 @@ fun createApp(): UTSJSONObject {
 fun main(app: IApp) {
     definePageRoutes();
     defineAppConfig();
+    defineCustom();
     (createApp()["app"] as VueApp).mount(app);
+}
+fun defineCustom() {
+//    __uniConfig.entryPagePath = "/pages/index/second";
 }
 open class UniAppConfig : AppConfig {
     override var name: String = "hello-uniapp-x";
     override var appid: String = "__UNI__9154379";
     override var versionName: String = "1.0.0";
     override var versionCode: String = "100";
-    override var uniCompilerVersion: String = "4.23";
+    override var uniCompilerVersion: String = "4.24";
     constructor(){}
 }
 fun definePageRoutes() {
     __uniRoutes.push(PageRoute(path = "pages/index/index", component = GenPagesIndexIndexClass, meta = PageMeta(isQuit = true), style = utsMapOf("navigationBarTitleText" to "uni-app x")));
+    __uniRoutes.push(PageRoute(path = "pages/index/second", component = GenPagesIndexSecondClass, meta = PageMeta(isQuit = false), style = utsMapOf("navigationBarTitleText" to "second")));
 }
 val __uniTabBar: Map<String, Any?>? = null;
 val __uniLaunchPage: Map<String, Any?> = utsMapOf("url" to "pages/index/index", "style" to utsMapOf("navigationBarTitleText" to "uni-app x"));

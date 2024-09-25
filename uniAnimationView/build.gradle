@@ -1,21 +1,18 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id 'io.dcloud.uts.kotlin'
 }
 
 android {
-    namespace 'com.sola.basic'
+    namespace 'com.sola.unianimationview'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.sola.basic"
         minSdk 24
-        targetSdk 34
-        versionCode 100
-        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        buildConfigField "String", "UTSRegisterComponents", "\"[{\\\"name\\\":\\\"animation-view\\\",\\\"class\\\":\\\"uts.sdk.modules.uniAnimationView.AnimationViewComponent\\\"}]\""
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -31,22 +28,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    aaptOptions {
-        additionalParameters '--auto-add-overlay'
-        ignoreAssetsPattern '!.svn:!.git:.*:!CVS:!thumbs.db:!picasa.ini:!*.scc:*~'
-    }
 }
 
 dependencies {
-    implementation libs.androidx.core.ktx
-    implementation libs.androidx.appcompat
-    implementation libs.material
-    implementation libs.google.webrtc
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
-    implementation "com.squareup.okhttp3:okhttp:3.12.12"
-    implementation project(':uniappx')
     implementation fileTree(include: ['uts-runtime-release.aar','android-gif-drawable-1.2.28.aar','app-common-release.aar','app-runtime-release.aar','breakpad-build-release.aar','dcloud-layout-release.aar','framework-release.aar','uni-exit-release.aar','uni-getAccessibilityInfo-release.aar','uni-getAppAuthorizeSetting-release.aar','uni-getAppBaseInfo-release.aar','uni-getSystemSetting-release.aar','uni-openAppAuthorizeSetting-release.aar','uni-prompt-release.aar','uni-storage-release.aar','uni-getDeviceInfo-release.aar','uni-getSystemInfo-release.aar','uni-rpx2px-release.aar','uni-theme-release.aar','debug-server-release.aar'], dir: '../uniappx/libs')
+    compileOnly "com.alibaba:fastjson:1.2.83"
+    compileOnly "androidx.core:core-ktx:1.10.1"
+    compileOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8'
+    compileOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8'
 }

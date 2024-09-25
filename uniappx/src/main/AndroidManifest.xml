@@ -11,6 +11,7 @@
             android:windowSoftInputMode="adjustResize"
             >
         </activity>
+<!--        <meta-data android:name="DCLOUD_UNI_APPID" android:value="__UNI__EFA5D9A"></meta-data>-->
 
         <meta-data
             android:name="DCLOUD_UNI_APPID" android:value="__UNI__9154379" />

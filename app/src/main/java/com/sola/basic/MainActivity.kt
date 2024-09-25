@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import io.dcloud.uniapp.UniAppActivity
+import io.dcloud.uniapp.appframe.IUniNativePage
+import io.dcloud.uniapp.framework.__uniConfig
+import org.webrtc.DefaultVideoDecoderFactory
 
 /**
  * @author  SOLA
@@ -17,7 +20,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         findViewById<View>(R.id.btn_goto).setOnClickListener {
-            startActivity(Intent(this@MainActivity, UniAppActivity::class.java))
+            val intent = Intent(this@MainActivity, UniAppActivity::class.java)
+            intent.putExtra("path","111")
+            startActivity(intent)
+            UniAppActivity().loadPage(IUniNativePage("/"))
         }
     }
 }
